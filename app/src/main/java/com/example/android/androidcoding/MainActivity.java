@@ -22,10 +22,15 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<UserProfile> dummy = new ArrayList<>();
         dummy.add(new UserProfile("Dwayne", "Thomas", ""));
+        dummy.add(new UserProfile("Dwayne", "Thomas", ""));
+        dummy.add(new UserProfile("Dwayne", "Thomas", ""));
+        dummy.add(new UserProfile("Dwayne", "Thomas", ""));
+        dummy.add(new UserProfile("Dwayne", "Thomas", ""));
+        dummy.add(new UserProfile("Dwayne", "Thomas", ""));
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
-        mAdapter = new UserProfileAdapter(this, new ArrayList<UserProfile>());
+        mAdapter = new UserProfileAdapter(this, dummy);
         listOfUser.setAdapter(mAdapter);
     }
 }
