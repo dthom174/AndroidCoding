@@ -1,12 +1,17 @@
 package com.example.android.androidcoding;
 
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
-
+import android.widget.Toast;
+import android.app.LoaderManager.LoaderCallbacks;
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements  LoaderCallbacks<List<UserProfile>>{
 
     private UserProfileAdapter mAdapter;
     private static final int PROFILE_LOADER_ID = 1;
@@ -20,17 +25,38 @@ public class MainActivity extends AppCompatActivity {
         // Find a reference to the {@link ListView} in the layout
         ListView listOfUser = (ListView) findViewById(R.id.profile_list);
 
-        ArrayList<UserProfile> dummy = new ArrayList<>();
-        dummy.add(new UserProfile("Dwayne", "Thomas", ""));
-        dummy.add(new UserProfile("Dwayne", "Thomas", ""));
-        dummy.add(new UserProfile("Dwayne", "Thomas", ""));
-        dummy.add(new UserProfile("Dwayne", "Thomas", ""));
-        dummy.add(new UserProfile("Dwayne", "Thomas", ""));
-        dummy.add(new UserProfile("Dwayne", "Thomas", ""));
-
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
-        mAdapter = new UserProfileAdapter(this, dummy);
+        mAdapter = new UserProfileAdapter(this, new ArrayList<UserProfile>());
         listOfUser.setAdapter(mAdapter);
+
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.initLoader(PROFILE_LOADER_ID,null,this);
+
+
+    }
+
+    @Override
+    public Loader<List<UserProfile>> onCreateLoader(int i, Bundle bundle) {
+
+        return new UserProfileAsyncTask(this, USG_URL);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<UserProfile>> loader, List<UserProfile> data) {
+        // Clear the adapter of previous earthquake data
+        mAdapter.clear();
+
+        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // data set. This will trigger the ListView to update.
+        if(data != null && !data.isEmpty()){
+
+            mAdapter.addAll(data);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<UserProfile>> loader) {
+        mAdapter.clear();
     }
 }

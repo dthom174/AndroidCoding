@@ -1,6 +1,8 @@
 package com.example.android.androidcoding;
 
+
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +19,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileUtils {
+public final class ProfileUtils {
+
     public static final String LOG_TAG = ProfileUtils.class.toString();
 
     private ProfileUtils(){
