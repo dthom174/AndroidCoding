@@ -36,6 +36,12 @@ public class MainActivity extends AppCompatActivity implements  LoaderCallbacks<
 
     }
 
+    //when the plus button is press create a new user
+    public void userInfo(View view){
+        Toast.makeText(getApplicationContext(),"Creating new user",Toast.LENGTH_SHORT).show();
+        new CreateUserAsync().execute(USG_URL);
+    }
+
     @Override
     public Loader<List<UserProfile>> onCreateLoader(int i, Bundle bundle) {
 
